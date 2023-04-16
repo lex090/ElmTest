@@ -45,7 +45,7 @@ fun MainScreen() {
             mutableStateOf(
                 CoefficientState(
                     coefficientChangingState = CoefficientChangingState.Default,
-                    kf = "14.6"
+                    coefficient = "14.6"
 
                 )
             )
@@ -89,7 +89,7 @@ fun MainScreen() {
                     coefficientSate =
                         coefficientSate.copy(
                             coefficientChangingState = CoefficientChangingState.Decrease,
-                            kf = "5.1"
+                            coefficient = "5.1"
                         )
                 }) {
                     Text("Decrease")
@@ -99,7 +99,7 @@ fun MainScreen() {
                     coefficientSate =
                         coefficientSate.copy(
                             coefficientChangingState = CoefficientChangingState.Increase,
-                            kf = "32.89"
+                            coefficient = "32.89"
                         )
                 }) {
                     Text("Increase")

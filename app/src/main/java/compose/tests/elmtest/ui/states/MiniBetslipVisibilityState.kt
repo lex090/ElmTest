@@ -11,7 +11,7 @@ data class MiniBetslipTitleState(
 
 data class CoefficientState(
     val coefficientChangingState: CoefficientChangingState,
-    val kf: String
+    val coefficient: String
 )
 
 sealed class CoefficientChangingState {
