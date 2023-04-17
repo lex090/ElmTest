@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
+import androidx.compose.material.Checkbox
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,7 +26,10 @@ import compose.tests.elmtest.ui.states.MiniBetslipTitleState
 import compose.tests.elmtest.ui.states.MiniBetslipVisibilityState
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    isDark: Boolean,
+    onChangeColor: (Boolean) -> Unit
+) {
     Box(modifier = Modifier.fillMaxSize()) {
         var visibilitySate: MiniBetslipVisibilityState by remember {
             mutableStateOf(
@@ -52,6 +56,10 @@ fun MainScreen() {
         }
 
         Column {
+            Checkbox(
+                checked = isDark,
+                onCheckedChange = onChangeColor
+            )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
