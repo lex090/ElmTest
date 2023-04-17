@@ -7,10 +7,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -30,6 +26,22 @@ import compose.tests.elmtest.ui.components.events.Coefficient
 import compose.tests.elmtest.ui.states.CoefficientState
 import compose.tests.elmtest.ui.states.MiniBetslipTitleState
 import compose.tests.elmtest.ui.states.MiniBetslipVisibilityState
+import compose.tests.elmtest.ui.theme.DarkPalette
+import compose.tests.elmtest.ui.theme.LightPalette
+import compose.tests.elmtest.ui.theme.MyCustomTheme
+
+data class MiniBetslipStyle(
+    val background: Color
+) {
+    companion object {
+        val light = MiniBetslipStyle(
+            background = LightPalette.white
+        )
+        val dark = MiniBetslipStyle(
+            background = DarkPalette.gray_600
+        )
+    }
+}
 
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @OptIn(ExperimentalAnimationApi::class)
@@ -39,7 +51,8 @@ fun MiniBetslip(
     titleState: MiniBetslipTitleState,
     coefficientState: CoefficientState,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    style: MiniBetslipStyle = MyCustomTheme.styles.miniBetslipStyle
 ) {
     AnimatedVisibility(
         visible = visibilityState.isVisible,
@@ -57,7 +70,7 @@ fun MiniBetslip(
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.White)
+                    .background(style.background)
                     .clickable(onClick = onClick)
 
             ) {
@@ -76,7 +89,6 @@ fun MiniBetslip(
                         .padding(end = 16.dp)
                 )
             }
-
         }
     }
 }
