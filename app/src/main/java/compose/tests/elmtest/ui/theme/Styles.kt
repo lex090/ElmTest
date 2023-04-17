@@ -11,7 +11,7 @@ class AppStyles(
     coefficientStyle: CoefficientStyle,
     isLight: Boolean
 ) {
-    var coefficientStyles by mutableStateOf(coefficientStyle)
+    var coefficientStyle by mutableStateOf(coefficientStyle)
         private set
 
     var isLight by mutableStateOf(isLight)

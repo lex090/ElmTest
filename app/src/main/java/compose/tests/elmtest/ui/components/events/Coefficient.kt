@@ -40,7 +40,7 @@ import compose.tests.elmtest.ui.theme.MyCustomTheme
 fun Coefficient(
     state: CoefficientState,
     modifier: Modifier = Modifier,
-    coefficientStyle: CoefficientStyle = MyCustomTheme.styles.coefficientStyles
+    coefficientStyle: CoefficientStyle = MyCustomTheme.styles.coefficientStyle
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
