@@ -8,10 +8,10 @@ import androidx.compose.ui.graphics.Color
 import compose.tests.elmtest.R
 
 class AppStyles(
-    coefficientStyles: CoefficientStyles,
+    coefficientStyle: CoefficientStyle,
     isLight: Boolean
 ) {
-    var coefficientStyles by mutableStateOf(coefficientStyles)
+    var coefficientStyles by mutableStateOf(coefficientStyle)
         private set
 
     var isLight by mutableStateOf(isLight)
@@ -19,16 +19,16 @@ class AppStyles(
 }
 
 val lightAppStyles = AppStyles(
-    coefficientStyles = CoefficientStyles.light,
+    coefficientStyle = CoefficientStyle.light,
     isLight = true
 )
 
 val darkAppStyles = AppStyles(
-    coefficientStyles = CoefficientStyles.dark,
+    coefficientStyle = CoefficientStyle.dark,
     isLight = false
 )
 
-data class CoefficientStyles(
+data class CoefficientStyle(
     val increaseColor: Color,
     val decreaseColor: Color,
     val defaultColor: Color,
@@ -36,7 +36,7 @@ data class CoefficientStyles(
     @DrawableRes val decreaseIcon: Int,
 ) {
     companion object {
-        val light = CoefficientStyles(
+        val light = CoefficientStyle(
             increaseColor = LightPalette.green_700,
             decreaseColor = LightPalette.red_700,
             defaultColor = LightPalette.blue_700,
@@ -44,7 +44,7 @@ data class CoefficientStyles(
             decreaseIcon = R.drawable.ic_coefficient_decrease,
         )
 
-        val dark = CoefficientStyles(
+        val dark = CoefficientStyle(
             increaseColor = DarkPalette.green_700,
             decreaseColor = DarkPalette.red_500,
             defaultColor = DarkPalette.blue_600,

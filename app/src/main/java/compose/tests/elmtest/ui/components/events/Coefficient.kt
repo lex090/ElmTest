@@ -32,13 +32,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import compose.tests.elmtest.ui.states.CoefficientChangingState
 import compose.tests.elmtest.ui.states.CoefficientState
+import compose.tests.elmtest.ui.theme.CoefficientStyle
 import compose.tests.elmtest.ui.theme.MyCustomTheme
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun Coefficient(
     state: CoefficientState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    coefficientStyle: CoefficientStyle = MyCustomTheme.styles.coefficientStyles
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -46,12 +48,9 @@ fun Coefficient(
     ) {
         val color by animateColorAsState(
             targetValue = when (state.coefficientChangingState) {
-                CoefficientChangingState.Decrease ->
-                    MyCustomTheme.styles.coefficientStyles.decreaseColor
-                CoefficientChangingState.Default ->
-                    MyCustomTheme.styles.coefficientStyles.defaultColor
-                CoefficientChangingState.Increase ->
-                    MyCustomTheme.styles.coefficientStyles.increaseColor
+                CoefficientChangingState.Decrease -> coefficientStyle.decreaseColor
+                CoefficientChangingState.Default -> coefficientStyle.defaultColor
+                CoefficientChangingState.Increase -> coefficientStyle.increaseColor
             }
         )
 
@@ -75,7 +74,7 @@ fun Coefficient(
                 is CoefficientChangingState.Decrease -> {
                     Icon(
                         painter = painterResource(
-                            id = MyCustomTheme.styles.coefficientStyles.decreaseIcon
+                            id = coefficientStyle.decreaseIcon
                         ),
                         contentDescription = "Coefficient decrease",
                         tint = color,
@@ -88,7 +87,7 @@ fun Coefficient(
                 is CoefficientChangingState.Increase -> {
                     Icon(
                         painter = painterResource(
-                            id = MyCustomTheme.styles.coefficientStyles.increaseIcon
+                            id = coefficientStyle.increaseIcon
                         ),
                         contentDescription = "Coefficient increase",
                         tint = color,
@@ -138,7 +137,6 @@ fun CoefficientDefaultStatePreview() {
                 coefficient = "15.26"
             )
         )
-        val a = MyCustomTheme.styles.coefficientStyles.increaseColor
     }
 }
 
