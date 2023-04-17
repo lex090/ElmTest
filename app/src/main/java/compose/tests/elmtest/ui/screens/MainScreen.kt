@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
-import androidx.compose.material.Checkbox
+import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -56,10 +56,17 @@ fun MainScreen(
         }
 
         Column {
-            Checkbox(
-                checked = isDark,
-                onCheckedChange = onChangeColor
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(start = 4.dp)
+            ) {
+                Text("Темная тема")
+                Switch(
+                    checked = isDark,
+                    onCheckedChange = onChangeColor
+                )
+            }
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
