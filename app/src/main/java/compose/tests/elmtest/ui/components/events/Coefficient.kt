@@ -1,6 +1,7 @@
 package compose.tests.elmtest.ui.components.events
 
 
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.SizeTransform
@@ -24,23 +25,52 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import compose.tests.elmtest.R
 import compose.tests.elmtest.ui.states.CoefficientChangingState
 import compose.tests.elmtest.ui.states.CoefficientState
-import compose.tests.elmtest.ui.theme.CoefficientStyle
+import compose.tests.elmtest.ui.theme.DarkPalette
+import compose.tests.elmtest.ui.theme.LightPalette
 import compose.tests.elmtest.ui.theme.MyCustomTheme
+
+data class CoefficientStyle(
+    val increaseColor: Color,
+    val decreaseColor: Color,
+    val defaultColor: Color,
+    @DrawableRes val increaseIcon: Int,
+    @DrawableRes val decreaseIcon: Int,
+) {
+    companion object {
+        val light = CoefficientStyle(
+            increaseColor = LightPalette.green_700,
+            decreaseColor = LightPalette.red_700,
+            defaultColor = LightPalette.blue_700,
+            increaseIcon = R.drawable.ic_coefficient_increase,
+            decreaseIcon = R.drawable.ic_coefficient_decrease,
+        )
+
+        val dark = CoefficientStyle(
+            increaseColor = DarkPalette.green_700,
+            decreaseColor = DarkPalette.red_500,
+            defaultColor = DarkPalette.blue_600,
+            increaseIcon = R.drawable.ic_coefficient_increase,
+            decreaseIcon = R.drawable.ic_coefficient_decrease,
+        )
+    }
+}
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun Coefficient(
     state: CoefficientState,
     modifier: Modifier = Modifier,
-    coefficientStyle: CoefficientStyle = MyCustomTheme.styles.coefficientStyle
+    style: CoefficientStyle = MyCustomTheme.styles.coefficientStyle
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -48,9 +78,9 @@ fun Coefficient(
     ) {
         val color by animateColorAsState(
             targetValue = when (state.coefficientChangingState) {
-                CoefficientChangingState.Decrease -> coefficientStyle.decreaseColor
-                CoefficientChangingState.Default -> coefficientStyle.defaultColor
-                CoefficientChangingState.Increase -> coefficientStyle.increaseColor
+                CoefficientChangingState.Decrease -> style.decreaseColor
+                CoefficientChangingState.Default -> style.defaultColor
+                CoefficientChangingState.Increase -> style.increaseColor
             }
         )
 
@@ -73,9 +103,7 @@ fun Coefficient(
             when (targetState) {
                 is CoefficientChangingState.Decrease -> {
                     Icon(
-                        painter = painterResource(
-                            id = coefficientStyle.decreaseIcon
-                        ),
+                        painter = painterResource(id = style.decreaseIcon),
                         contentDescription = "Coefficient decrease",
                         tint = color,
                         modifier = Modifier
@@ -86,9 +114,7 @@ fun Coefficient(
 
                 is CoefficientChangingState.Increase -> {
                     Icon(
-                        painter = painterResource(
-                            id = coefficientStyle.increaseIcon
-                        ),
+                        painter = painterResource(id = style.increaseIcon),
                         contentDescription = "Coefficient increase",
                         tint = color,
                         modifier = Modifier

@@ -6,12 +6,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import compose.tests.elmtest.R
+import compose.tests.elmtest.ui.components.events.CoefficientStyle
+import compose.tests.elmtest.ui.components.minibetslip.MiniBetslipLogoStyle
 
 class AppStyles(
     coefficientStyle: CoefficientStyle,
+    miniBetslipLogoStyle: MiniBetslipLogoStyle,
     isLight: Boolean
 ) {
     var coefficientStyle by mutableStateOf(coefficientStyle)
+        private set
+
+    var miniBetslipLogoStyle by mutableStateOf(miniBetslipLogoStyle)
         private set
 
     var isLight by mutableStateOf(isLight)
@@ -20,36 +26,12 @@ class AppStyles(
 
 val lightAppStyles = AppStyles(
     coefficientStyle = CoefficientStyle.light,
+    miniBetslipLogoStyle = MiniBetslipLogoStyle.light,
     isLight = true
 )
 
 val darkAppStyles = AppStyles(
     coefficientStyle = CoefficientStyle.dark,
+    miniBetslipLogoStyle = MiniBetslipLogoStyle.dark,
     isLight = false
 )
-
-data class CoefficientStyle(
-    val increaseColor: Color,
-    val decreaseColor: Color,
-    val defaultColor: Color,
-    @DrawableRes val increaseIcon: Int,
-    @DrawableRes val decreaseIcon: Int,
-) {
-    companion object {
-        val light = CoefficientStyle(
-            increaseColor = LightPalette.green_700,
-            decreaseColor = LightPalette.red_700,
-            defaultColor = LightPalette.blue_700,
-            increaseIcon = R.drawable.ic_coefficient_increase,
-            decreaseIcon = R.drawable.ic_coefficient_decrease,
-        )
-
-        val dark = CoefficientStyle(
-            increaseColor = DarkPalette.green_700,
-            decreaseColor = DarkPalette.red_500,
-            defaultColor = DarkPalette.blue_600,
-            increaseIcon = R.drawable.ic_coefficient_increase,
-            decreaseIcon = R.drawable.ic_coefficient_decrease,
-        )
-    }
-}
