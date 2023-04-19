@@ -27,7 +27,6 @@ data class MiniBetslipLogoStyle(
             backgroundColor = LightPalette.gray_100,
             iconColor = LightPalette.blue_700,
             logoIcon = R.drawable.ic_logo
-
         )
 
         val dark = MiniBetslipLogoStyle(

@@ -3,9 +3,13 @@ package compose.tests.elmtest.ui.components.minibetslip
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.foundation.background
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.with
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.widthIn
@@ -47,7 +51,10 @@ fun MiniBetslipTitle(
                     fontWeight = FontWeight.W700
                 )
             }
-            AnimatedContent(targetState = data) { animationData ->
+            AnimatedContent(
+                targetState = data,
+                transitionSpec = { fadeIn() + scaleIn() with fadeOut() + scaleOut() }
+            ) { animationData ->
                 Text(
                     text = state.title,
                     maxLines = 1,
@@ -63,8 +70,8 @@ fun MiniBetslipTitle(
 
             AnimatedVisibility(
                 visible = !state.isMultiple,
-                enter = scaleIn(),
-                exit = scaleOut()
+                enter = fadeIn() + scaleIn() + expandVertically(),
+                exit = fadeOut() + scaleOut() + shrinkVertically()
             ) {
                 requireNotNull(state.subtitle)
                 Text(
