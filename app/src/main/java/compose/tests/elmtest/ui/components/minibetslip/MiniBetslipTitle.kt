@@ -20,16 +20,36 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import compose.tests.elmtest.ui.states.MiniBetslipTitleState
+import compose.tests.elmtest.ui.theme.DarkPalette
+import compose.tests.elmtest.ui.theme.LightPalette
+import compose.tests.elmtest.ui.theme.MyCustomTheme
+
+data class MiniBetslipTitleStyle(
+    val titleTextColor: Color,
+    val subTitleTextColor: Color
+) {
+    companion object {
+        val light = MiniBetslipTitleStyle(
+            titleTextColor = LightPalette.gray_700,
+            subTitleTextColor = LightPalette.gray_500
+        )
+
+        val dark = MiniBetslipTitleStyle(
+            titleTextColor = DarkPalette.gray_300,
+            subTitleTextColor = DarkPalette.gray_500
+        )
+    }
+}
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MiniBetslipTitle(
     state: MiniBetslipTitleState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    style: MiniBetslipTitleStyle = MyCustomTheme.styles.miniBetslipTitleStyle
 ) {
     // TODO: Не обработан кейс когда кф очень большой и он налезает на название
     Column(
@@ -38,31 +58,24 @@ fun MiniBetslipTitle(
             .widthIn(min = 64.dp)
     ) {
         Column {
-            val data = if (state.isMultiple) {
-                DataAnimation(
-                    color = Color(0xFF222222),
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.W400
-                )
+            val fontWeight = if (state.isMultiple) {
+                FontWeight.W400
             } else {
-                DataAnimation(
-                    color = Color(0xFF222222),
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.W700
-                )
+                FontWeight.W700
             }
+
             AnimatedContent(
-                targetState = data,
+                targetState = fontWeight,
                 transitionSpec = { fadeIn() + scaleIn() with fadeOut() + scaleOut() }
-            ) { animationData ->
+            ) {
                 Text(
                     text = state.title,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = TextStyle(
-                        color = animationData.color,
-                        fontSize = animationData.fontSize,
-                        fontWeight = animationData.fontWeight,
+                        color = style.titleTextColor,
+                        fontSize = 14.sp,
+                        fontWeight = it,
                         background = Color.Transparent
                     )
                 )
@@ -79,7 +92,7 @@ fun MiniBetslipTitle(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = TextStyle(
-                        color = Color(0xFF828282),
+                        color = style.subTitleTextColor,
                         fontSize = 10.sp,
                         fontWeight = FontWeight.W400,
                         background = Color.Transparent
@@ -89,9 +102,3 @@ fun MiniBetslipTitle(
         }
     }
 }
-
-data class DataAnimation(
-    val color: Color,
-    val fontSize: TextUnit,
-    val fontWeight: FontWeight
-)

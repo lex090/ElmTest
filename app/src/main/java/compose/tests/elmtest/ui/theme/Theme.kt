@@ -15,8 +15,7 @@ object MyCustomTheme {
         get() = LocalAppStyles.current
 }
 
-internal val LocalAppStyles: ProvidableCompositionLocal<AppStyles> =
-    staticCompositionLocalOf { lightAppStyles }
+internal val LocalAppStyles = staticCompositionLocalOf { lightAppStyles }
 
 @Composable
 fun MyCustomTheme(
