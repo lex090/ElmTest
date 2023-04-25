@@ -7,7 +7,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import compose.tests.elmtest.ui.screens.MainScreen
+import compose.tests.elmtest.testsample.CounterScreen
+import compose.tests.elmtest.testsample.CounterStore
 import compose.tests.elmtest.ui.theme.MyCustomTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,9 +20,12 @@ class MainActivity : ComponentActivity() {
             MyCustomTheme(
                 isDarkTheme = isDarkTheme
             ) {
-                MainScreen(
-                    isDark = isDarkTheme,
-                    onChangeColor = { isDarkTheme = it }
+//                MainScreen(
+//                    isDark = isDarkTheme,
+//                    onChangeColor = { isDarkTheme = it }
+//                )
+                CounterScreen(
+                    CounterStore()
                 )
             }
         }
